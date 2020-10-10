@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersTable extends Migration
+class CreateLedgerRecordAttachTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('user', function (Blueprint $table) {
+        Schema::create('ledger_record_attach', function (Blueprint $table) {
             $table->id();
+            $table->integer('ledger_record_id')->unsigned();
             $table->string('name');
-            $table->string('avatar');
-            $table->rememberToken();
+            $table->decimal('amount', 10, 2);
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user');
+        Schema::dropIfExists('ledger_record_attach');
     }
 }

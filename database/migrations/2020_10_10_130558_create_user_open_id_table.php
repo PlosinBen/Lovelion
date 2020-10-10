@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersTable extends Migration
+class CreateUserOpenIdTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('user', function (Blueprint $table) {
+        Schema::create('user_open_id', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('avatar');
-            $table->rememberToken();
+            $table->integer('user_id')->unsigned();
+            $table->enum('gateway', ['facebook']);
+            $table->string('open_id');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user');
+        Schema::dropIfExists('user_open_id');
     }
 }
