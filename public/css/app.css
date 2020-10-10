@@ -1,7 +1,7 @@
 body {
   font-family: "Noto Sans TC", sans-serif;
   font-family: "Roboto", sans-serif;
-  background-color: #e8e8e8;
+  background-color: #f0f0f0;
 }
 
 .navbar-brand img {
@@ -10,5 +10,9 @@ body {
 
 #content {
   min-height: 65vh;
+}
+
+#footer {
+  color: #bebebe;
 }
 

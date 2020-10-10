@@ -26,7 +26,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string|null
      */
-    // protected $namespace = 'App\\Http\\Controllers';
+    protected $namespace = 'App\Http\Controllers';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -62,17 +62,19 @@ class RouteServiceProvider extends ServiceProvider
 
     protected function memberRoute()
     {
-        Route::domain($this->mergeDomain('member'))
-            ->middleware('web')
-            ->namespace($this->namespace)
-            ->group(base_path('routes/member.php'));
+        Route::middleware('web')
+            ->namespace("{$this->namespace}\Member")
+            ->domain($this->mergeDomain('member'))
+            ->as('member.')
+            ->group(base_path("routes/member.php"));
     }
 
     protected function futuresRoute()
     {
-        Route::domain($this->mergeDomain('futures'))
-            ->middleware('web')
-            ->namespace($this->namespace)
+        Route::middleware('web')
+            ->namespace("{$this->namespace}\Futures")
+            ->domain($this->mergeDomain('futures'))
+            ->as('futures.')
             ->group(base_path('routes/futures.php'));
     }
 
