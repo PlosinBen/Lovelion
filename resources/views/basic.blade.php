@@ -54,14 +54,10 @@
     </nav>
 @endif
 
-@yield('PreContent')
-<section id="content" class="container-fluid">
-    @yield('Content')
-</section>
-@yield('AfterContent')
+@yield('Content')
 
 @section('Footer')
-    <section id="footer" class="bg-dark">
+    <section id="footer" class="bg-dark mt-4">
         Footer
     </section>
 @show

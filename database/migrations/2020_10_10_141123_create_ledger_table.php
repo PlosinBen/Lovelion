@@ -18,6 +18,7 @@ class CreateLedgerTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->string('name');
             $table->string('currency_code');
+            $table->dateTime('deleted_at')->nullable();
             $table->timestamps();
         });
     }

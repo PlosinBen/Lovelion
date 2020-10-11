@@ -1,8 +1,6 @@
 body {
     font-family: 'Noto Sans TC', sans-serif;
     font-family: 'Roboto', sans-serif;
-
-    background-color: #f0f0f0;
 }
 
 .navbar-brand img {
@@ -20,4 +18,22 @@ body {
 .breadcrumb {
     line-height: 1.2;
     size: 0.5rem;
+}
+
+.ledger-card {
+    color: #212529;
+    .image {
+        img {
+            display: block;
+            width: 100%;
+        }
+    }
+    .name, .currency, .expenses {
+        label {
+            font-weight: bold;
+        }
+        span {
+            float: right;
+        }
+    }
 }

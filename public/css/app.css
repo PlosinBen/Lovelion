@@ -1,7 +1,6 @@
 body {
   font-family: "Noto Sans TC", sans-serif;
   font-family: "Roboto", sans-serif;
-  background-color: #f0f0f0;
 }
 
 .navbar-brand img {
@@ -19,5 +18,26 @@ body {
 .breadcrumb {
   line-height: 1.2;
   size: 0.5rem;
+}
+
+.ledger-card {
+  color: #212529;
+}
+
+.ledger-card .image img {
+  display: block;
+  width: 100%;
+}
+
+.ledger-card .name label,
+.ledger-card .currency label,
+.ledger-card .expenses label {
+  font-weight: bold;
+}
+
+.ledger-card .name span,
+.ledger-card .currency span,
+.ledger-card .expenses span {
+  float: right;
 }
 
