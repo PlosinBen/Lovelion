@@ -10,6 +10,33 @@
         </h5>
 
         <div class="row">
+            @foreach($ledgerEntities as $ledgerEntity)
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+                    <a href="#">
+                        <div class="card">
+                            <img src="{{ asset('img/blank.jpg') }}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <div class="ledger-card p-2">
+                                    <div class="name">
+                                        <label>名稱：</label>
+                                        <span class="float-right">{{ $ledgerEntity->name }}</span>
+                                    </div>
+                                    <div class="currency">
+                                        <label>幣別：</label>
+                                        <span class="float-right">{{ $ledgerEntity->currency_code }}</span>
+                                    </div>
+                                    <div class="expenses">
+                                        <label>總支出：</label>
+                                        <span class="float-right">
+                                            {{ number_format($ledgerEntity->expenses, config("currency.{$ledgerEntity->currency_code}.places")) }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            @endforeach
             <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                 <a href="#">
                     <div class="card">
@@ -28,13 +55,9 @@
                                     <label>總支出：</label>
                                     <span class="float-right">{{ number_format(123345, 2) }}</span>
                                 </div>
-                                <div class="option">
-                                    <button class="btn btn-sm btn-outline-danger float-right">delete</button>
-                                </div>
                             </div>
                         </div>
                     </div>
-
                 </a>
             </div>
         </div>

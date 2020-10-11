@@ -14,8 +14,26 @@ class BookkeepingService
         $this->LedgerRepository = $ledgerRepository;
     }
 
-    public function getList($userId, $filter = [])
+    public function getLedgerAll($userId, $filter = [])
     {
+        $filter['userId'] = $userId;
+
+        return $this->LedgerRepository
+            ->with('LedgerRecord')
+            ->fetch($filter)
+            ->map(function($row) {
+                $row->expenses = $row->LedgerRecord
+                    ->where('total', '<', 0)
+                    ->sum('total');
+
+                return $row;
+            });
+    }
+
+    public function getLedgerList($userId, $filter = [])
+    {
+        $filter['userId'] = $userId;
+
         $data = $this->LedgerRepository
             ->with('LedgerRecord')
             ->fetchPagination($filter);

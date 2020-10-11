@@ -2,14 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Service\BookkeepingService;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(BookkeepingService $bookkeepingService)
     {
+        $user = auth()->user();
+
+
         $this->pushBreadcrumbsNode('Dashboard');
 
-        return $this->view('dashboard');
+        return $this->view(
+            'dashboard',
+            [
+                'ledgerEntities' => $bookkeepingService->getLedgerAll($user->id),
+            ]
+        );
     }
 }
