@@ -12,7 +12,20 @@ class LoginController extends Controller
         return view('member.login');
     }
 
-    public function loginSocial($gateway)
+    public function loginSocial(string $provider)
+    {
+        if (env('APP_ENV') === 'local') {
+            auth()->loginUsingId(1);
+            return redirect(request()->get('path'));
+        }
+
+        session(['login_refer' => request()->get('path')]);
+        return Socialite::driver($provider)
+            ->redirectUrl(route('login.callback', $provider))
+            ->redirect();
+    }
+
+    public function callback($provider)
     {
 
     }
