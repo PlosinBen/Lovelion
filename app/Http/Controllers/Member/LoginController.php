@@ -19,10 +19,10 @@ class LoginController extends Controller
 
     public function loginSocial(string $provider, Request $request)
     {
-        $path = request()->get('path', '/');
+        $path = request()->get('path');
         if (env('APP_ENV') === 'local') {
             auth()->loginUsingId(1);
-            return redirect($path);
+            return redirect(route($path));
         }
 
         session(['login_refer' => $path]);

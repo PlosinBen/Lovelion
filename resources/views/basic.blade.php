@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @yield('Meta')
 
-    <title>{{ env('APP_NAME') }}</title>
+    <title>@yield('Title') - {{ env('APP_NAME') }}</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&family=Roboto&display=swap" rel="stylesheet">
@@ -37,6 +37,22 @@
         </nav>
     </div>
 </section>
+
+@if(count($_breadcrumbs) > 0)
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            @foreach($_breadcrumbs as $key => $url)
+                @if($url !== null)
+                    <li class="breadcrumb-item">
+                        <a href="{{ $url }}">{{ $key }}</a>
+                    </li>
+                @else
+                    <li class="breadcrumb-item active" aria-current="page">{{ $key }}</li>
+                @endif
+            @endforeach
+        </ol>
+    </nav>
+@endif
 
 @yield('PreContent')
 <section id="content" class="container-fluid">

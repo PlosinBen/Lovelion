@@ -1,7 +1,23 @@
 
 
 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
+    <ul class="navbar-nav ml-2">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+                Ledger
+            </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="{{ route('ledger.dashboard') }}">Dashboard</a>
+                <div class="dropdown-divider"></div>
+            </div>
+        </li>
+
+
+
+
+
+
         <li class="nav-item active">
             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
         </li>

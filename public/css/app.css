@@ -16,3 +16,8 @@ body {
   color: #bebebe;
 }
 
+.breadcrumb {
+  line-height: 1.2;
+  size: 0.5rem;
+}
+

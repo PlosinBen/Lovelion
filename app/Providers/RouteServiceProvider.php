@@ -40,7 +40,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->routes(function () {
             $this->memberRoute();
 
-            $this->futuresRoute();
+            $this->ledgerRoute();
+            //$this->futuresRoute();
 
 
 //            Route::prefix('api')
@@ -69,9 +70,18 @@ class RouteServiceProvider extends ServiceProvider
             ->group(base_path("routes/member.php"));
     }
 
+    protected function ledgerRoute()
+    {
+        Route::middleware(['web', 'auth'])
+            ->namespace("{$this->namespace}\Ledger")
+            ->domain($this->mergeDomain('ledger'))
+            ->as('ledger.')
+            ->group(base_path("routes/ledger.php"));
+    }
+
     protected function futuresRoute()
     {
-        Route::middleware('web')
+        Route::middleware(['web', 'auth'])
             ->namespace("{$this->namespace}\Futures")
             ->domain($this->mergeDomain('futures'))
             ->as('futures.')
