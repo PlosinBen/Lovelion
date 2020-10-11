@@ -16,9 +16,9 @@
 </head>
 <body>
 
-<section class="bg-light">
-    <div class="container-fluid">
-        <nav class="navbar navbar-light navbar-expand-md">
+<section>
+    <div class="container">
+        <nav class="navbar navbar-light navbar-expand-md py-0">
             <div>
                 <button class="navbar-toggler" type="button"
                         data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -38,23 +38,32 @@
     </div>
 </section>
 
+@yield('PreContent')
+
 @if(count($_breadcrumbs) > 0)
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            @foreach($_breadcrumbs as $key => $url)
-                @if($url !== null)
-                    <li class="breadcrumb-item">
-                        <a href="{{ $url }}">{{ $key }}</a>
-                    </li>
-                @else
-                    <li class="breadcrumb-item active" aria-current="page">{{ $key }}</li>
-                @endif
-            @endforeach
-        </ol>
-    </nav>
+    <section class="container mt-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="/">{{ env('APP_NAME') }}</a>
+                </li>
+                @foreach($_breadcrumbs as $key => $url)
+                    @if($url !== null)
+                        <li class="breadcrumb-item">
+                            <a href="{{ $url }}">{{ $key }}</a>
+                        </li>
+                    @else
+                        <li class="breadcrumb-item active" aria-current="page">{{ $key }}</li>
+                    @endif
+                @endforeach
+            </ol>
+        </nav>
+    </section>
 @endif
 
 @yield('Content')
+
+@yield('AfterContent')
 
 @section('Footer')
     <section id="footer" class="bg-dark mt-4">

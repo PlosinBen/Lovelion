@@ -8,7 +8,7 @@
                 Ledger
             </a>
             <div class="dropdown-menu">
-                <a class="dropdown-item" href="{{ route('ledger.dashboard') }}">Dashboard</a>
+                <a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a>
                 <div class="dropdown-divider"></div>
             </div>
         </li>

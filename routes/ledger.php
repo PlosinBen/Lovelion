@@ -2,6 +2,4 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', 'DashboardController@index')->name('dashboard');
-
-//Route::resources('');
+Route::resource('/', 'IndexController');

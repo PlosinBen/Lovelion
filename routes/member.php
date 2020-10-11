@@ -13,12 +13,3 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['prefix' => 'login', 'as' => 'login.'], function() {
-    Route::get('/', 'LoginController@login')->name('index');
-    Route::get('{provider}', 'LoginController@loginSocial')->name('social');
-    Route::get('callback/{provider}', 'LoginController@callback')->name('callback');
-});
-
-Route::get('/', function () {
-    return view('basic');
-});
