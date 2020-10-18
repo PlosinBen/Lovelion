@@ -14,12 +14,12 @@ class LedgerController extends Controller
         $this->pushBreadcrumbsNode('Ledger');
     }
 
-    public function create()
+    public function show($id, BookkeepingService $bookkeepingService)
     {
-        $this->pushBreadcrumbsNode('Create');
+        $bookkeepingService->getLedger($id);
 
+        $this->pushBreadcrumbsNode('Ledger');
 
-        return $this->view('bookkeeping.create');
     }
 
     public function store(RequestValidator $requestValidator, BookkeepingService $bookkeepingService)

@@ -6,13 +6,13 @@
     <section class="container">
         <h4 class="h3">
             近期帳本清單
-            <a id="createLedger" href="{{ route('bookkeeping.create') }}" class="btn btn-sm btn-success">新增</a>
+            <a id="createLedger" href="{{ route('bookkeeping.ledger.create') }}" class="btn btn-sm btn-success">新增</a>
         </h4>
 
         <div class="row">
             @foreach($ledgerEntities as $ledgerEntity)
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
-                    <a href="#">
+                    <a href="{{ route('bookkeeping.ledger.show', $ledgerEntity->id) }}">
                         <div class="card ledger-card">
                             <div class="card-header">
                                 {{ $ledgerEntity->name }}

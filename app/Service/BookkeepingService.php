@@ -14,10 +14,8 @@ class BookkeepingService
         $this->LedgerRepository = $ledgerRepository;
     }
 
-    public function getLedgerAll($userId, $filter = [])
+    public function getLedgerAll($filter = [])
     {
-        $filter['userId'] = $userId;
-
         return $this->LedgerRepository
             ->with('LedgerRecord')
             ->fetch($filter)
@@ -30,27 +28,11 @@ class BookkeepingService
             });
     }
 
-    public function getLedgerList($userId, $filter = [])
+    public function getLedgerList($filter = [])
     {
-        $filter['userId'] = $userId;
-
         $data = $this->LedgerRepository
             ->with('LedgerRecord')
             ->fetchPagination($filter);
-
-
-        dd($data);
-
-
-            $data->map(function($row) {
-                $row->expenses = $row->LedgerRecord
-                    ->where('total', '<', 0)
-                    ->sum('total');
-
-                return $row;
-            });
-
-
     }
 
     public function createLedger($userId, Collection $columns)
@@ -61,5 +43,16 @@ class BookkeepingService
                 $columns->get('name'),
                 $columns->get('currency_code')
             );
+    }
+
+    public function getLedger($id)
+    {
+        return $this->LedgerRepository
+            ->find($id);
+    }
+
+    public function getLedgerRecordList($id, $filter = [])
+    {
+
     }
 }

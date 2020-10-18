@@ -16,7 +16,9 @@ class DashboardController extends Controller
         return $this->view(
             'dashboard',
             [
-                'ledgerEntities' => $bookkeepingService->getLedgerAll($user->id),
+                'ledgerEntities' => $bookkeepingService->getLedgerAll([
+                    'userId' => $user->id
+                ]),
             ]
         );
     }
