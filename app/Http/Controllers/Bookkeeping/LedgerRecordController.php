@@ -25,7 +25,10 @@ class LedgerRecordController extends Controller
             return abort(403);
         }
 
-        return view('bookkeeping.ledger.editRecord', [
+        return $this
+            ->pushBreadcrumbsNode($ledgerRecord->Ledger->name, route('bookkeeping.ledger.show', $ledgerRecord->Ledger->id))
+            ->pushBreadcrumbsNode('編輯 #' . $ledgerRecord->id)
+            ->view('bookkeeping.ledger.editRecord', [
             'ledgerRecord' => $ledgerRecord
         ]);
     }
