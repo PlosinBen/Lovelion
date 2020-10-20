@@ -11,4 +11,29 @@ class LedgerRecordDetailRepository extends Repository
     {
         $this->Model = $ledgerRecordDetail;
     }
+
+    public function replaceRecord($ledgerRecordId, $details)
+    {
+        $model = clone $this->Model;
+
+        $model
+            ->where('ledger_record_id', $ledgerRecordId)
+            ->update([
+                'updated_at' => null
+            ]);
+
+        foreach($details as $detail) {
+            if( $detail['id'] === null ) {
+                $detail['ledger_record_id'] = $ledgerRecordId;
+                LedgerRecordDetail::insert($detail);
+                continue;
+            }
+            $id = $detail['id'];
+            unset($detail['id']);
+            $model
+                ->where('ledger_record_id', $ledgerRecordId)
+                ->where('id', $id)
+                ->update($detail);
+        }
+    }
 }

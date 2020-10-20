@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Bookkeeping;
 
 use App\Http\Controllers\Controller;
+use App\Package\RequestValidator;
 use App\Service\BookkeepingService;
+use Illuminate\Http\Request;
 
 class LedgerRecordController extends Controller
 {
@@ -21,7 +23,7 @@ class LedgerRecordController extends Controller
         $user = auth()->user();
 
         $ledgerRecord = $this->BookkeepingService->getLedgerRecord($id);
-        if($ledgerRecord->Ledger->user_id != $user->id) {
+        if ($ledgerRecord->Ledger->user_id != $user->id) {
             return abort(403);
         }
 
@@ -29,7 +31,17 @@ class LedgerRecordController extends Controller
             ->pushBreadcrumbsNode($ledgerRecord->Ledger->name, route('bookkeeping.ledger.show', $ledgerRecord->Ledger->id))
             ->pushBreadcrumbsNode('編輯 #' . $ledgerRecord->id)
             ->view('bookkeeping.ledger.editRecord', [
-            'ledgerRecord' => $ledgerRecord
-        ]);
+                'ledgerRecord' => $ledgerRecord
+            ]);
     }
+
+    public function update($id, RequestValidator $requestValidator, Request $request)
+    {
+        $this->BookkeepingService->updateLedgerRecord(
+            $id,
+            $request->get('ledgerRecordDetail'),
+            $request->get('ledgerRecordAttach')
+        );
+    }
+
 }

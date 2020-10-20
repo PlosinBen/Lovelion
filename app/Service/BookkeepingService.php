@@ -2,6 +2,8 @@
 
 namespace App\Service;
 
+use App\Repository\Bookkeeping\LedgerRecordAttachRepository;
+use App\Repository\Bookkeeping\LedgerRecordDetailRepository;
 use App\Repository\Bookkeeping\LedgerRecordRepository;
 use App\Repository\Bookkeeping\LedgerRepository;
 use Illuminate\Support\Collection;
@@ -10,11 +12,20 @@ class BookkeepingService
 {
     private LedgerRepository $LedgerRepository;
     private LedgerRecordRepository $LedgerRecordRepository;
+    private LedgerRecordDetailRepository $LedgerRecordDetailRepository;
+    private LedgerRecordAttachRepository $LedgerRecordAttachRepository;
 
-    public function __construct(LedgerRepository $ledgerRepository, LedgerRecordRepository $ledgerRecordRepository)
+    public function __construct(
+        LedgerRepository $ledgerRepository,
+        LedgerRecordRepository $ledgerRecordRepository,
+        LedgerRecordDetailRepository $ledgerRecordDetailRepository,
+        LedgerRecordAttachRepository $ledgerRecordAttachRepository
+    )
     {
         $this->LedgerRepository = $ledgerRepository;
         $this->LedgerRecordRepository = $ledgerRecordRepository;
+        $this->LedgerRecordDetailRepository = $ledgerRecordDetailRepository;
+        $this->LedgerRecordAttachRepository = $ledgerRecordAttachRepository;
     }
 
     public function createLedger($userId, Collection $columns)
@@ -38,7 +49,7 @@ class BookkeepingService
         return $this->LedgerRepository
             ->with('LedgerRecord')
             ->fetch($filter)
-            ->map(function($row) {
+            ->map(function ($row) {
                 $row->expenses = $row->LedgerRecord
                     ->where('total', '<', 0)
                     ->sum('total');
@@ -74,5 +85,10 @@ class BookkeepingService
         return $this->LedgerRecordRepository
             ->perPage(20)
             ->fetchPagination($filter);
+    }
+
+    public function updateLedgerRecord($id, $details, $attaches)
+    {
+        $this->LedgerRecordDetailRepository->replaceRecord($id, $details);
     }
 }

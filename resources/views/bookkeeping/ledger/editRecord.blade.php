@@ -2,8 +2,9 @@
 
 @section('Content')
     <section class="container" id="ledger-record">
-        <form action="">
-            <div class="card">
+        <form method="POST" action="{{ route('bookkeeping.ledgerRecord.update', $ledgerRecord->Ledger->id) }}">
+            <input type="hidden" name="_method" value="PUT">
+            <div class="card mb-4">
                 <div class="card-body">
                     {{ csrf_field() }}
                     <div class="row">
@@ -11,7 +12,7 @@
                             <div class="form-group">
                                 <label>名稱</label>
                                 <input type="text" class="form-control" name="ledgerRecord[name]" autocomplete="off"
-                                v-model="ledgerRecord.name">
+                                       v-model="ledgerRecord.name">
                             </div>
                         </div>
                         <div class="col-12 col-md-8">
@@ -40,12 +41,17 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="card">
                 <div class="card-header border-top">
                     消費明細
                 </div>
                 <div class="card-body">
                     <h5 class="h5">
                         <strong>商品</strong>
+                        <a href="#" class="small pl-2" @click.prevent="addDetail">
+                            <i class="fas fa-plus"></i>
+                        </a>
                     </h5>
                     <hr>
                     <div class="row border-bottom d-none d-md-flex">
@@ -70,6 +76,11 @@
                         <input type="hidden" :name="'ledgerRecordDetail[' + i + '][id]'" v-model="row.id">
                         <div class="col-12 text-center d-md-none pb-2">
                             商品名稱
+                        </div>
+                        <div class="col-12 text-center">
+                            <button type="button" class="close text-danger" @click.prevent="delDetail(i)">
+                                <span aria-hidden="true">×</span>
+                            </button>
                         </div>
                         <div class="col-12 col-md-4 pb-2">
                             <input type="text" class="form-control" autocomplete="off"
@@ -105,10 +116,12 @@
                         </div>
                     </div>
 
-                    <h5 class="h5 mt-4">
+                    <h5 class="h5 mt-4 pb-4 border-bottom">
                         <strong>其他</strong>
+                        <a href="#" class="small pl-2" @click.prevent="addAttach">
+                            <i class="fas fa-plus"></i>
+                        </a>
                     </h5>
-                    <hr>
                     <div class="row border-bottom d-none d-sm-flex">
                         <div class="col-9 text-center pb-2">
                             名稱
@@ -119,8 +132,14 @@
                     </div>
                     <div v-for="row, i in ledgerRecord.ledger_record_attach" :class="{ 'bg-light': i % 2 == 0 }"
                          class="row border-bottom pt-2">
+                        <input type="hidden" :name="'ledgerRecordAttach[' + i + '][id]'" v-model="row.id">
                         <div class="col-12 text-center d-sm-none pb-2">
                             名稱
+                        </div>
+                        <div class="col-12 text-center">
+                            <button type="button" class="close text-danger" @click.prevent="delAttach(i)">
+                                <span aria-hidden="true">×</span>
+                            </button>
                         </div>
                         <div class="col-12 col-sm-9 pb-2">
                             <input type="text" class="form-control" autocomplete="off"
@@ -172,19 +191,27 @@
                 }
             },
             methods: {
-                calcSubtotal(i) {
-                    let row = ledgerRecord.ledger_record_detail[i]
-                    return parseFloat(row.unit) * parseInt(row.quantity) + parseFloat(row.other)
+                addDetail() {
+                    this.ledgerRecord.ledger_record_detail.push({})
                 },
+                delDetail(i) {
+                    this.ledgerRecord.ledger_record_detail.splice(i, 1)
+                },
+                addAttach() {
+                   this.ledgerRecord.ledger_record_attach.push({})
+                },
+                delAttach(i) {
+                    this.ledgerRecord.ledger_record_attach.splice(i, 1)
+                }
             },
             beforeUpdate() {
                 let total = 0
-                ledgerRecord.ledger_record_detail.forEach((row, i) => {
-                    row.subtotal = this.calcSubtotal(i)
+                this.ledgerRecord.ledger_record_detail.forEach((row, i) => {
+                    row.subtotal = (parseFloat(row.unit) || 0) * (parseInt(row.quantity) || 0) + (parseFloat(row.other) || 0)
                     total += row.subtotal
                 }, this)
 
-                ledgerRecord.ledger_record_attach.forEach((row, i) => {
+                this.ledgerRecord.ledger_record_attach.forEach((row, i) => {
                     total += parseFloat(row.amount)
                 })
 
