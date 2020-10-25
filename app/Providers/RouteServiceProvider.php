@@ -75,7 +75,6 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::middleware(['web', 'auth'])
             ->namespace("{$this->namespace}\Bookkeeping")
-            ->as('bookkeeping.')
             ->prefix('bookkeeping')
             ->group(base_path("routes/bookkeeping.php"));
     }

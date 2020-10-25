@@ -25,6 +25,7 @@ class LedgerRecordDetailRepository extends Repository
         foreach($details as $detail) {
             if( $detail['id'] === null ) {
                 $detail['ledger_record_id'] = $ledgerRecordId;
+                $detail['other'] = $detail['other'] ?? 0;
                 LedgerRecordDetail::insert($detail);
                 continue;
             }
@@ -40,6 +41,5 @@ class LedgerRecordDetailRepository extends Repository
         $model = clone $this->Model;
         $model->where('updated_at', null)
             ->delete();
-
     }
 }

@@ -24,6 +24,12 @@
                         <label>消費金額</label>：
                         <span>{{ $statistics->total }}</span>
                     </div>
+                    <div class="col-12">
+                        <a class="btn btn-sm btn-success"
+                           href="{{ route('bookkeeping.ledgerRecord.create', ['ledger_id' => $ledger->id]) }}">
+                            新增紀錄
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="card-body">
@@ -36,7 +42,6 @@
                         <tr class="text-center">
                             <th>id</th>
                             <th>日期</th>
-                            <th>名稱</th>
                             <th>地點</th>
                             <th>金額</th>
                         </tr>
@@ -46,7 +51,6 @@
                             <tr role="button" onclick="location.href='{{ route('bookkeeping.ledgerRecord.show', $ledgerRecord->id) }}'">
                                 <td>{{ $ledgerRecord->id }}</td>
                                 <td>{{ $ledgerRecord->date->format('m-d') }}</td>
-                                <td>{{ $ledgerRecord->name }}</td>
                                 <td>{{ $ledgerRecord->locate }}</td>
                                 <td class="text-right">{{ number_format($ledgerRecord->total) }}</td>
                             </tr>
@@ -73,9 +77,9 @@
 
 @section('Script')
     <script>
-        $('table').on('click', 'tr', function() {
+        $('table').on('click', 'tr', function () {
 
-            console.log( this.dataset.id )
+            console.log(this.dataset.id)
         })
     </script>
 @endsection

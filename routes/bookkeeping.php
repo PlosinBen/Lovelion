@@ -2,5 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::resource('/ledger', 'LedgerController');
-Route::resource('/ledgerRecord', 'LedgerRecordController');
+Route::group(['as' => 'bookkeeping.'], function() {
+    Route::resource('/ledger', 'LedgerController');
+    Route::resource('/ledgerRecord', 'LedgerRecordController');
+});

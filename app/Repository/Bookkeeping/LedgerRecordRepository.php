@@ -12,6 +12,16 @@ class LedgerRecordRepository extends Repository
         $this->Model = $ledgerRecord;
     }
 
+    public function create($userId, $ledgerId, $locate, $note)
+    {
+        return $this->insert([
+            'user_id' => $userId,
+            'ledger_id' => $ledgerId,
+            'locate' => $locate,
+            'note' => $note ?? ''
+        ]);
+    }
+
     public function calcStatistics($ledgerId)
     {
         return $this->Model

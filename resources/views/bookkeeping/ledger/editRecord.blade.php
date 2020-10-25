@@ -2,20 +2,28 @@
 
 @section('Content')
     <section class="container" id="ledger-record">
-        <form method="POST" action="{{ route('bookkeeping.ledgerRecord.update', $ledgerRecord->Ledger->id) }}">
-            <input type="hidden" name="_method" value="PUT">
+        <form method="POST" action="{{ $action }}">
+            @isset($method)
+                <input type="hidden" name="_method" value="{{ $method }}">
+            @endisset
             <div class="card mb-4">
                 <div class="card-body">
                     {{ csrf_field() }}
                     <div class="row">
-                        <div class="col-12 col-md-4">
+                        <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group">
-                                <label>名稱</label>
-                                <input type="text" class="form-control" name="ledgerRecord[name]" autocomplete="off"
-                                       v-model="ledgerRecord.name">
+                                <label>日期</label>
+                                <div id="datetimepicker" class="input-group">
+                                    <input type="text" class="form-control bg-white" name="ledgerRecord[date]"
+                                           autocomplete="off"
+                                           value="{{ $ledgerRecord->date->toDateString() }}">
+                                    <div class="input-group-append" data-target="#datetimepicker" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fas fa-calendar"></i></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-12 col-md-8">
+                        <div class="col-12">
                             <div class="form-group">
                                 <label>地點</label>
                                 <input type="text" class="form-control" name="ledgerRecord[locate]" autocomplete="off"
@@ -178,46 +186,61 @@
     </section>
 @endsection
 
+@section('StyleSheet')
+    <link rel="stylesheet" href="{{ asset('res/tempusdominus-bootstrap/tempusdominus-bootstrap-4-v5.1.2.min.css') }}">
+@endsection
+
 @section('Script')
+    <script src="{{ asset('res/moment.min.js') }}"></script>
+    <script src="{{ asset('res/tempusdominus-bootstrap/tempusdominus-bootstrap-4-v5.1.2.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.1/vue.global.prod.js"></script>
     <script>
-        let ledgerRecord = {!! $ledgerRecord->toJson() !!}
+        let ledgerRecord = @json($ledgerRecord)
 
-            let
-        config = {
-            data() {
-                return {
-                    ledgerRecord: ledgerRecord
+    </script>
+    <script>
+        $(function () {
+            $('#datetimepicker').datetimepicker({
+                format: 'L'
+            });
+        });
+
+        let
+            config = {
+                data() {
+                    return {
+                        ledgerRecord: ledgerRecord
+                    }
+                },
+                methods: {
+                    addDetail() {
+                        this.ledgerRecord.ledger_record_detail.push({})
+                    },
+                    delDetail(i) {
+                        this.ledgerRecord.ledger_record_detail.splice(i, 1)
+                    },
+                    addAttach() {
+                        this.ledgerRecord.ledger_record_attach.push({})
+                    },
+                    delAttach(i) {
+                        this.ledgerRecord.ledger_record_attach.splice(i, 1)
+                    }
+                },
+                beforeUpdate() {
+                    let total = 0
+                    this.ledgerRecord.ledger_record_detail.forEach((row, i) => {
+                        row.quantity = parseInt(row.quantity) || 1
+                        row.subtotal = (parseFloat(row.unit) || 0) * row.quantity + (parseFloat(row.other) || 0)
+                        total += row.subtotal
+                    }, this)
+
+                    this.ledgerRecord.ledger_record_attach.forEach((row, i) => {
+                        total += parseFloat(row.amount) || 0
+                    })
+
+                    this.ledgerRecord.total = total
                 }
-            },
-            methods: {
-                addDetail() {
-                    this.ledgerRecord.ledger_record_detail.push({})
-                },
-                delDetail(i) {
-                    this.ledgerRecord.ledger_record_detail.splice(i, 1)
-                },
-                addAttach() {
-                   this.ledgerRecord.ledger_record_attach.push({})
-                },
-                delAttach(i) {
-                    this.ledgerRecord.ledger_record_attach.splice(i, 1)
-                }
-            },
-            beforeUpdate() {
-                let total = 0
-                this.ledgerRecord.ledger_record_detail.forEach((row, i) => {
-                    row.subtotal = (parseFloat(row.unit) || 0) * (parseInt(row.quantity) || 0) + (parseFloat(row.other) || 0)
-                    total += row.subtotal
-                }, this)
-
-                this.ledgerRecord.ledger_record_attach.forEach((row, i) => {
-                    total += parseFloat(row.amount)
-                })
-
-                this.ledgerRecord.total = total
             }
-        }
 
         Vue.createApp(config).mount('#ledger-record')
     </script>

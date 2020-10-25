@@ -97,4 +97,14 @@ class BookkeepingService
         $this->LedgerRecordDetailRepository->replaceRecord($id, $details);
         $this->LedgerRecordAttachRepository->replaceRecord($id, $attaches);
     }
+
+    public function createLedgerRecord($userId, $ledgerId, $columns)
+    {
+        return $this->LedgerRecordRepository->create(
+            $userId,
+            $ledgerId,
+            $columns['locate'],
+            $columns['note']
+        );
+    }
 }

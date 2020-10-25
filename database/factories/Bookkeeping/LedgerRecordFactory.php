@@ -24,7 +24,6 @@ class LedgerRecordFactory extends Factory
         return [
             'ledger_id' => 1,
             'date' => $this->faker->dateTimeBetween('-30 days', 'now'),
-            'name' => $this->faker->name,
             'locate' => $this->faker->country,
             'total' => $this->faker->numerify('####.##'),
         ];

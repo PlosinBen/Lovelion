@@ -17,7 +17,6 @@ class CreateLedgerRecordTable extends Migration
             $table->id();
             $table->integer('ledger_id')->unsigned();
             $table->date('date');
-            $table->string('name');
             $table->string('locate');
             $table->decimal('total', 10, 2);
             $table->string('note')->default('');
