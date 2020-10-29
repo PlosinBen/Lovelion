@@ -17,7 +17,7 @@ class LedgerRecordController extends Controller
 
         $this->BookkeepingService = $bookkeepingService;
 
-        $this->pushBreadcrumbsNode('Ledger');
+        $this->pushBreadcrumbsNode('Ledger', route('bookkeeping.ledger.index'));
     }
 
     public function show($id)
