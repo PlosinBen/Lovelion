@@ -40,7 +40,9 @@
                     <table class="table table-hover table-striped">
                         <thead class="thead-dark">
                         <tr class="text-center">
-                            <th>id</th>
+                            @if(env('APP_DEBUG'))
+                                <th>id</th>
+                            @endif
                             <th>日期</th>
                             <th>地點</th>
                             <th>金額</th>
@@ -49,7 +51,9 @@
                         <tbody>
                         @foreach($ledgerRecords as $ledgerRecord)
                             <tr role="button" onclick="location.href='{{ route('bookkeeping.ledgerRecord.show', $ledgerRecord->id) }}'">
-                                <td>{{ $ledgerRecord->id }}</td>
+                                @if(env('APP_DEBUG'))
+                                    <td>{{ $ledgerRecord->id }}</td>
+                                @endif
                                 <td>{{ $ledgerRecord->date->format('m-d') }}</td>
                                 <td>{{ $ledgerRecord->locate }}</td>
                                 <td class="text-right">{{ number_format($ledgerRecord->total) }}</td>

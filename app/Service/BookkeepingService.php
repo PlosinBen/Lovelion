@@ -88,7 +88,7 @@ class BookkeepingService
         ];
 
         return $this->LedgerRecordRepository
-            ->perPage(20)
+            ->perPage(30)
             ->fetchPagination($filter);
     }
 
