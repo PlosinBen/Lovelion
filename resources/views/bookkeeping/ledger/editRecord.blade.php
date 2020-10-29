@@ -177,7 +177,7 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <button class="btn btn-primary mr-2">新增</button>
+                    <button class="btn btn-primary mr-2">儲存</button>
                     <a type="button" class="btn btn-outline-secondary"
                        href="{{ route('bookkeeping.ledger.show', $ledgerRecord->Ledger->id) }}">取消</a>
                 </div>

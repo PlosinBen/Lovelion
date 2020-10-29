@@ -39,7 +39,9 @@ class LedgerRecordDetailRepository extends Repository
         }
 
         $model = clone $this->Model;
-        $model->where('updated_at', null)
+        $model
+            ->where('ledger_record_id', $ledgerRecordId)
+            ->where('updated_at', null)
             ->delete();
     }
 }

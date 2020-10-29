@@ -76,6 +76,8 @@ class LedgerRecordController extends Controller
 
     public function update($id, Request $request)
     {
+        $this->BookkeepingService->updateLedger($id, $request->get('ledgerRecord'));
+
         $this->BookkeepingService->updateLedgerRecord(
             $id,
             $request->get('ledgerRecordDetail'),

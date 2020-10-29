@@ -92,6 +92,13 @@ class BookkeepingService
             ->fetchPagination($filter);
     }
 
+    public function updateLedger($id, $ledger)
+    {
+        $ledger['note'] = $ledger['note'] ?? '';
+
+        $this->LedgerRecordRepository->update($id, collect($ledger));
+    }
+
     public function updateLedgerRecord($id, $details, $attaches)
     {
         $this->LedgerRecordDetailRepository->replaceRecord($id, $details);
