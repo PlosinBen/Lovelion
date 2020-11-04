@@ -8,6 +8,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\Telegram\TelegramChannel;
 use NotificationChannels\Telegram\TelegramMessage;
+use Illuminate\Support\Facades\Log;
 
 class DeployNotification extends Notification
 {
@@ -22,13 +23,14 @@ class DeployNotification extends Notification
      */
     public function __construct($travisPayload)
     {
+        Log::error(json_encode($travisPayload));
         $this->travisPayload = $travisPayload;
     }
 
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
      * @return array
      */
     public function via($notifiable)
@@ -39,15 +41,15 @@ class DeployNotification extends Notification
     /**
      * Get the mail representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->line('The introduction to the notification.')
+            ->action('Notification Action', url('/'))
+            ->line('Thank you for using our application!');
     }
 
     public function toTelegram($notifiable)
@@ -66,7 +68,7 @@ class DeployNotification extends Notification
 
             $messageStack->push("> [{$commit}]({$compare_url}) {$message}");
         }
-        $message = implode("\n", $messageStack);
+        $message = $messageStack->implode("\n");
 
         //travis ci
         $buildNum = $this->travisPayload->number;
@@ -88,7 +90,7 @@ Travis-CI:
     /**
      * Get the array representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
      * @return array
      */
     public function toArray($notifiable)
