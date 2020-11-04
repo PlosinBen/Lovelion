@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Service\UserService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
@@ -11,28 +13,47 @@ class LoginController extends Controller
         'facebook',
     ];
 
-    public function login()
+    public function login(Request $request)
     {
-        return $this->view('member.login');
+        return $this->view('member.login')
+            ->withCookie('login_refer', $request->get('path'));
     }
 
     public function loginSocial(string $provider, Request $request)
     {
-        $path = request()->get('path');
         if (env('APP_ENV') === 'local') {
             auth()->loginUsingId(1);
 
-            return redirect($path);
+            return $this->redirectToReferPage();
         }
-
-        session(['login_refer' => $path]);
 
         return Socialite::driver($provider)
             ->redirectUrl(route('login.callback', $provider))
             ->redirect();
     }
 
-    public function callback($provider)
+    public function callback($provider, UserService $userService)
     {
+        $user = Socialite::driver($provider)->user();
+
+        $user = $userService->getBySocialUser($provider, $user);
+
+        if( $user === null ) {
+            #register?
+
+            return;
+        }
+
+        auth()->login($user);
+
+        return redirect('/');
+    }
+
+    private function redirectToReferPage()
+    {
+        $target = Cookie::get('login_refer') ?? route('admin.dashboard');
+        Cookie::queue('login_refer', '', -1);
+
+        return redirect($target);
     }
 }

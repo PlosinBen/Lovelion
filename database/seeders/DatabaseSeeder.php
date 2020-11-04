@@ -16,9 +16,8 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         //Member
-        $this->call([
-            UserSeeder::class,
-        ]);
+        \App\Models\Member\User::factory(1)->create();
+        \App\Models\Member\UserOpenId::factory(1)->create();
 
         //ledger
         \App\Models\Bookkeeping\Ledger::factory(2)->create();

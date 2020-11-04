@@ -16,4 +16,9 @@ class User extends Authenticatable
         'name',
         'avator',
     ];
+
+    public function UserOpenId()
+    {
+        return $this->hasMany(UserOPenId::class);
+    }
 }

@@ -16,9 +16,14 @@ class CreateUserOpenIdTable extends Migration
         Schema::create('user_open_id', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id')->unsigned();
-            $table->enum('gateway', ['facebook']);
+            $table->enum('provider', ['facebook', 'google', 'line']);
             $table->string('open_id');
+            $table->string('name')->default('');
+            $table->string('avatar')->default('');
+
             $table->timestamps();
+
+            $table->unique(['provider', 'open_id']);
         });
     }
 

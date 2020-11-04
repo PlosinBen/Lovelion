@@ -26,6 +26,6 @@ class Controller extends BaseController
             '_breadcrumbs' => $this->breadcrumbs,
         ];
 
-        return view($view, $params);
+        return response()->view($view, $params);
     }
 }
