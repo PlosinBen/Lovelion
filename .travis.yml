@@ -1,0 +1,28 @@
+language: php
+
+php:
+  - 7.4
+
+branches:
+  only:
+    - master
+
+sudo: false
+
+env:
+  - APP_DEBUG=false
+
+before_script:
+  - composer self-update
+
+install:
+  - composer install --prefer-dist --optimize-autoloader --quiet
+
+script: phpunit -c ./phpunit.xml ./tests --coverage-text
+
+notifications:
+  webhooks: https://www.lovelion.me/api/deploy
+
+addons:
+  hosts:
+    - www.lovelion.me
