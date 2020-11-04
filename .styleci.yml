@@ -1,11 +1,24 @@
-php:
-  preset: laravel
+preset: laravel
   disabled:
     - no_unused_imports
   finder:
+    name:
+      - "*.php"
     not-name:
       - index.php
       - server.php
+      - "*.blade.php"
+
+
+
+#php:
+#  preset: laravel
+#  disabled:
+#    - no_unused_imports
+#  finder:
+#    not-name:
+#      - index.php
+#      - server.php
 #js:
 #  finder:
 #    not-name:
