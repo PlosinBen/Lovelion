@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Notifications\DeployNotification;
+use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Http\Request;
-use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
 
@@ -22,7 +22,8 @@ class TravisCiController extends Controller
                 ->getBody()
                 ->getContents();
         } catch (GuzzleException $e) {
-            Log::error("TravisCi api fetch error");
+            Log::error('TravisCi api fetch error');
+
             return false;
         }
 
@@ -32,10 +33,11 @@ class TravisCiController extends Controller
             ->webhook
             ->public_key;
 
-        $payload = $request->get("payload");
+        $payload = $request->get('payload');
 
         if (openssl_verify($payload, base64_decode($signature), $travisPublicKey) !== 1) {
             Log::error('Travis CI webhooks verify error');
+
             return false;
         }
 
@@ -45,8 +47,8 @@ class TravisCiController extends Controller
         if ($payload->state === 'passed' && $payload->branch === $branch && env('APP_ENV') === 'production') {
             $path = env('GIT_DEPLOY_PATH');
             passthru("git reset --hard; git -C {$path} pull origin {$branch} 2>&1");
-            passthru("composer install");
-            passthru("composer dump-autoload -o");
+            passthru('composer install');
+            passthru('composer dump-autoload -o');
 
             Notification::route('telegram', 581968280)
                 ->notify(new DeployNotification($payload));

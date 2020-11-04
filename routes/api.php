@@ -14,6 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['prefix' => 'hook'], function() {
+Route::group(['prefix' => 'hook'], function () {
     Route::post('travis-ci', 'TravisCiController@hook');
 });
