@@ -11,4 +11,12 @@ class InvestmentAccountingRepository extends Repository
     {
         $this->Model = $investmentAccounting;
     }
+
+    public function fetchCommitment($investmentUserId, $period)
+    {
+        return $this->fetch([
+            'investment_user_id' => $investmentUserId,
+            'period' => $period
+        ]);
+    }
 }

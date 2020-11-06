@@ -33,11 +33,27 @@ class CommitmentController extends Controller
             ]);
     }
 
-    public function show($period)
+    public function show($period, Request $request)
     {
-        return $this
-            ->view('investment.commitment.show', [
+        $user = $request->user();
 
+        $filter = [
+            'investment_user_id' => $user->InvestmentUser->id,
+            'period' => $period,
+            'orderBy' => 'period DESC',
+        ];
+
+        $commitments = $this->investmentService->getCommitment($filter);
+
+        if ($commitments->count() === 0) {
+            return redirect()->route('investment.commitment.index');
+        }
+
+        return $this
+            ->pushBreadcrumbsNode($period)
+            ->view('investment.commitment.show', [
+                'Commitments' => $commitments,
+                'Details' => $this->investmentService->getDetailByCommitment($commitments->first())
             ]);
     }
 }
