@@ -14,8 +14,10 @@ class CommitmentController extends Controller
         $this->pushBreadcrumbsNode('投資');
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        $user = $request->user();
+
         return $this
             ->pushBreadcrumbsNode('歷史權益')
             ->view('investment.commitment.index', [
