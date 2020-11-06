@@ -32,4 +32,13 @@ class CommitmentController extends Controller
                 'CommitmentList' => $this->investmentService->getCommitmentList($filter),
             ]);
     }
+
+    public function show($period)
+    {
+
+        return $this
+            ->view('investment.commitment.show', [
+
+            ]);
+    }
 }
