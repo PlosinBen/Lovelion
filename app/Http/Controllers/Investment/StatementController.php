@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 class StatementController extends Controller
 {
     private StatementService $statementService;
+
     public function __construct(StatementService $statementService)
     {
         $this->statementService = $statementService;
@@ -18,11 +19,9 @@ class StatementController extends Controller
 
     public function index()
     {
-
-
         return $this
             ->view('component.statement.index', [
-                'FuturesStatements' => $this->statementService->getFuturesList([])
+                'FuturesStatements' => $this->statementService->getFuturesList([]),
             ]);
     }
 }

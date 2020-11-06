@@ -21,7 +21,7 @@ class StatementFutures extends Model
     ];
 
     protected $dates = [
-        'period'
+        'period',
     ];
 
     public function setPeriodAttribute($period)
