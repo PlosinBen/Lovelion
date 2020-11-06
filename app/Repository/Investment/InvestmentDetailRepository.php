@@ -17,7 +17,7 @@ class InvestmentDetailRepository extends Repository
         return $this->fetch([
             'investment_user_id' => $commitment->investment_user_id,
             'period' => $commitment->period,
-            'orderBy' => 'date DESC'
+            'orderBy' => 'date DESC',
         ]);
     }
 }

@@ -16,7 +16,7 @@ class InvestmentAccountingRepository extends Repository
     {
         return $this->fetch([
             'investment_user_id' => $investmentUserId,
-            'period' => $period
+            'period' => $period,
         ]);
     }
 }

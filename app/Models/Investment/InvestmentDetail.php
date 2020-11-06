@@ -23,13 +23,13 @@ class InvestmentDetail extends Model
 
     public function scopePeriod($query, $value)
     {
-        if (!$value instanceof Carbon) {
+        if (! $value instanceof Carbon) {
             $value = Carbon::parse($value);
         }
 
         return $query->whereBetween('date', [
             $value->startOfMonth()->toDateString(),
-            $value->endOfMonth()->toDateString()
+            $value->endOfMonth()->toDateString(),
         ]);
     }
 

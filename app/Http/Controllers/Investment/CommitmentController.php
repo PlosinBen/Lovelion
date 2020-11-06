@@ -53,7 +53,7 @@ class CommitmentController extends Controller
             ->pushBreadcrumbsNode($period)
             ->view('investment.commitment.show', [
                 'Commitments' => $commitments,
-                'Details' => $this->investmentService->getDetailByCommitment($commitments->first())
+                'Details' => $this->investmentService->getDetailByCommitment($commitments->first()),
             ]);
     }
 }
