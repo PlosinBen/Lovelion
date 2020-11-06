@@ -5,9 +5,9 @@ namespace App\Models\Investment;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
-class FuturesStatement extends Model
+class StatementFutures extends Model
 {
-    protected $table = 'futures_statement';
+    protected $table = 'statement_futures';
 
     protected $fillable = [
         'period',
@@ -18,6 +18,10 @@ class FuturesStatement extends Model
         'net_commitment',
         'distribution',
         'note',
+    ];
+
+    protected $dates = [
+        'period'
     ];
 
     public function setPeriodAttribute($period)

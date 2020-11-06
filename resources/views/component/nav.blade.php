@@ -21,7 +21,7 @@
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="{{ route('bookkeeping.ledger.index') }}">統計</a>
                 <a class="dropdown-item" href="{{ route('investment.commitment.index') }}">歷史權益</a>
-                <a class="dropdown-item" href="{{ route('dashboard') }}">對帳單</a>
+                <a class="dropdown-item" href="{{ route('investment.statement.index') }}">對帳單</a>
                 <a class="dropdown-item" href="{{ route('dashboard') }}">投資帳號</a>
             </div>
         </li>
