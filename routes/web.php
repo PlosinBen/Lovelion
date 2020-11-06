@@ -21,4 +21,13 @@ Route::group(['prefix' => 'login', 'as' => 'login.'], function () {
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'DashboardController@index')->name('dashboard');
+
+    Route::group(['namespace' => 'Bookkeeping', 'prefix' => 'bookkeeping', 'as' => 'bookkeeping.'], function () {
+        Route::resource('/ledger', 'LedgerController');
+        Route::resource('/ledgerRecord', 'LedgerRecordController');
+    });
+
+    Route::group(['namespace' => 'Investment', 'prefix' => 'investment', 'as' => 'investment.'], function () {
+        Route::resource('/commitment', 'CommitmentController');
+    });
 });

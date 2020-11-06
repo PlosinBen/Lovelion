@@ -40,8 +40,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->routes(function () {
             $this->authRoute();
 
-            $this->memberRoute();
-            $this->bookkeepingRoute();
+//            $this->memberRoute();
+//            $this->bookkeepingRoute();
 
             $this->apiRoute();
             //$this->futuresRoute();
