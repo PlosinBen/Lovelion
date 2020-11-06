@@ -17,7 +17,8 @@ class CreateInvestmentDetailTable extends Migration
             $table->id();
             $table->date('date');
             $table->integer('investment_user_id');
-            $table->tinyInteger('type')->comment('類型');
+            $table->enum('type', ['deposit', 'withdraw', 'profit', 'expense', 'transfer'])
+                ->comment('類型');
             $table->mediumInteger('amount')->comment('金額');
             $table->string('note')->default('')->comment('備註');
             $table->timestamps();
