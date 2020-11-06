@@ -22,7 +22,7 @@ class FuturesStatement extends Model
 
     public function setPeriodAttribute($period)
     {
-        if (!$period instanceof Carbon) {
+        if (! $period instanceof Carbon) {
             $period = Carbon::parse($period);
         }
 

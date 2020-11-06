@@ -2,8 +2,8 @@
 
 namespace App\Models\Investment;
 
-use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class InvestmentAccounting extends Model
 {
@@ -22,7 +22,7 @@ class InvestmentAccounting extends Model
 
     public function setPeriodAttribute($period)
     {
-        if (!$period instanceof Carbon) {
+        if (! $period instanceof Carbon) {
             $period = Carbon::parse($period);
         }
 

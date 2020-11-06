@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 
 class CommitmentController extends Controller
 {
-
-
     public function __construct()
     {
         $this->pushBreadcrumbsNode('投資');
@@ -22,6 +20,6 @@ class CommitmentController extends Controller
             ->pushBreadcrumbsNode('歷史權益')
             ->view('investment.commitment.index', [
 
-        ]);
+            ]);
     }
 }

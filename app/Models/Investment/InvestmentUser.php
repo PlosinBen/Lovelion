@@ -12,5 +12,4 @@ class InvestmentUser extends Model
         'name',
         'user_id',
     ];
-
 }

@@ -17,6 +17,6 @@ class InvestmentDetail extends Model
     ];
 
     protected $dates = [
-        'date'
+        'date',
     ];
 }
