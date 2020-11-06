@@ -35,7 +35,6 @@ class CommitmentController extends Controller
 
     public function show($period)
     {
-
         return $this
             ->view('investment.commitment.show', [
 
