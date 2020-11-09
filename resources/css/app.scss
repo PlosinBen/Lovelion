@@ -39,8 +39,12 @@ body {
 }
 
 .btn-group-xs > .btn, .btn-xs {
-    padding: 0.45rem 0.3rem;
+    padding: 0.3rem 0.3rem;
     font-size: 0.55rem;
     line-height: 0.5;
     border-radius: 0.2rem;
+}
+
+.row-table div.row:nth-child(even) {
+    background-color: #f8f9fa
 }
