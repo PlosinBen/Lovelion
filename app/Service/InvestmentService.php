@@ -78,6 +78,5 @@ class InvestmentService
 
     public function distributionProfit($accountEstimate, $statement)
     {
-
     }
 }

@@ -51,12 +51,12 @@ class StatementController extends Controller
                 $accountEstimate->sum('transfer')
             );
 
-            #總權重
+            //總權重
             $totalWeight = $accountEstimate->sum('weight');
-            #每單位損益 = 可分配總額 / 前期總權重
+            //每單位損益 = 可分配總額 / 前期總權重
             $perWeightProfit = floor($statement->distribution / $totalWeight);
 
-            #分配損益
+            //分配損益
             $userProfit = $accountEstimate
                 ->where('investment_user_id', '!=', 1)
                 ->map(function ($futures) use ($perWeightProfit) {

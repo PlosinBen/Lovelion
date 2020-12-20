@@ -33,6 +33,6 @@ Route::group(['middleware' => 'auth'], function () {
     });
 });
 
-Route::group(['prefix' => 'about'], function() {
+Route::group(['prefix' => 'about'], function () {
     Route::get('privacy', 'AboutController@privacy');
 });
