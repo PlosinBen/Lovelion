@@ -5,7 +5,7 @@ return [
 
     'expenseGroup' => [
         'basic',
-        ''
+        '',
     ],
 
     'type' => [
@@ -14,5 +14,5 @@ return [
         'profit' => '損益',
         'expense' => '費用',
         'transfer' => '出金轉存',
-    ]
+    ],
 ];

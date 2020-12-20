@@ -25,7 +25,7 @@ class InvestmentDetailRepository extends Repository
     public function fetchByPeriod(Carbon $period)
     {
         return $this->fetch([
-            'period' => $period
+            'period' => $period,
         ]);
     }
 }

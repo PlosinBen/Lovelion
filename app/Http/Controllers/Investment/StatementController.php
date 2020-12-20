@@ -25,7 +25,7 @@ class StatementController extends Controller
         return $this
             ->view('component.statement.index', [
                 'FuturesStatements' => $this->statementService->getFuturesList([
-                    'orderBy' => 'period DESC'
+                    'orderBy' => 'period DESC',
                 ]),
             ]);
     }
@@ -52,7 +52,6 @@ class StatementController extends Controller
             );
 
             dd($accountEstimate, $statement);
-
 
             echo $period->toDateString();
         } while ($period->addMonth() && $period->lessThan($now));

@@ -26,7 +26,7 @@ class StatementFutures extends Model
 
     public function setPeriodAttribute($period)
     {
-        if (!$period instanceof Carbon) {
+        if (! $period instanceof Carbon) {
             $period = Carbon::parse($period);
         }
 
@@ -35,7 +35,7 @@ class StatementFutures extends Model
 
     public function scopePeriod($query, $value)
     {
-        if (!$value instanceof Carbon) {
+        if (! $value instanceof Carbon) {
             $value = Carbon::parse($value);
         }
 
